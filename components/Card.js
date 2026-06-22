@@ -1,13 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Card({ title, imageUrl, onPress }) {
+export default function Card({ title, imageUrl }) {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.card}>
       <Image source={{ uri: imageUrl }} style={styles.cardImage} />
       <Text style={styles.cardTitle}>{title}</Text>
       
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => navigation.navigate('InformacaoScreen', { item: { title, image: imageUrl } })}
+      >
         <Text style={styles.buttonText}>VER DETALHES</Text>
       </TouchableOpacity>
     </View>

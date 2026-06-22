@@ -2,17 +2,17 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Card({ title, imageUrl }) {
+export default function Card({ item }) {
   const navigation = useNavigation();
 
   return (
     <View style={styles.card}>
-      <Image source={{ uri: imageUrl }} style={styles.cardImage} />
-      <Text style={styles.cardTitle}>{title}</Text>
+      <Image source={{ uri: item.image }} style={styles.cardImage} />
+      <Text style={styles.cardTitle}>{item.title}</Text>
       
       <TouchableOpacity 
         style={styles.button} 
-        onPress={() => navigation.navigate('InformacaoScreen', { item: { title, image: imageUrl } })}
+        onPress={() => navigation.navigate('Detalhes', { item })}
       >
         <Text style={styles.buttonText}>VER DETALHES</Text>
       </TouchableOpacity>

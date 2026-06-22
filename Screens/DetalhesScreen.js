@@ -1,46 +1,64 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Image, ScrollView, StatusBar } from "react-native";
 
-export default function DetalhesScreen() {
+export default function DetalhesScreen({ route }) {
+  // Captura os dados enviados de forma dinâmica ou usa um fallback seguro
+  const { item } = route.params || { 
+    item: { 
+      title: "CALDEIRA DE SANTORINI", 
+      image: "https://i.pinimg.com/736x/25/6d/76/256d762e2437bde3694aa98114986bed.jpg",
+      localizacao: "Santorini, Grécia",
+      saida: "Porto de Fira",
+      duracao: "4 a 6 horas",
+      destaques: ["• Vista linda", "• Vulcão ativo"]
+    } 
+  };
+
   return (
-    <ScrollView style={styles.container}>
-      
-      {/* Header */}
-      <View style={styles.header}>
-        <Ionicons name="menu" size={24} color="#fff" />
-        <Ionicons name="search" size={24} color="#fff" />
-      </View>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <StatusBar barStyle="light-content" backgroundColor="#466a8b" />
 
-      {/* Título */}
+      {/* Título da Seção */}
       <View style={styles.tag}>
         <Text style={styles.tagText}>DETALHES</Text>
       </View>
 
-      {/* Card */}
+      {/* Bloco de Informações Dinâmicas */}
       <View style={styles.card}>
-        <Text style={styles.title}>CALDEIRA DE SANTORINI</Text>
+        <Text style={styles.title}>{item.title.toUpperCase()}</Text>
 
-        <Text><Text style={styles.bold}>Localização:</Text> Santorini (na Grécia)</Text>
-        <Text><Text style={styles.bold}>Saída:</Text> ponto antigo de Fira ou Imerovigli</Text>
-        <Text><Text style={styles.bold}>Duração:</Text> Aproximadamente 4 a 6 horas</Text>
+        <View style={styles.infoBlock}>
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Localização:</Text> {item.localizacao}
+          </Text>
+          
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Saída / Acesso:</Text> {item.saida}
+          </Text>
+          
+          <Text style={styles.text}>
+            <Text style={styles.bold}>Duração:</Text> {item.duracao}
+          </Text>
 
-        <Text style={styles.bold}>Destaques:</Text>
-        <Text>- Trilhas formadas por rochas vulcânicas</Text>
-        <Text>- Vista panorâmica de Santorini e do Mar Egeu</Text>
-        <Text>- Experiência única com vista ativa</Text>
+          <Text style={[styles.bold, styles.text, { marginTop: 8 }]}>Destaques:</Text>
+          {item.destaques && item.destaques.map((destaque, index) => (
+            <Text key={index} style={styles.text}>{destaque}</Text>
+          ))}
+        </View>
       </View>
 
-      {/* Galeria */}
-      <View style={styles.tag}>
-        <Text style={styles.tagText}>GALERIA</Text>
-      </View>
+      {/* Galeria Escura conforme o protótipo */}
+      <View style={styles.galleryContainer}>
+        <View style={styles.galleryTag}>
+          <Text style={styles.galleryTagText}>GALERIA</Text>
+        </View>
 
-      <View style={styles.gallery}>
-        <Image source={{ uri: "https://source.unsplash.com/300x300/?santorini,volcano" }} style={styles.image} />
-        <Image source={{ uri: "https://source.unsplash.com/300x300/?beach,greece" }} style={styles.image} />
-        <Image source={{ uri: "https://source.unsplash.com/300x300/?cliff,sea" }} style={styles.image} />
-        <Image source={{ uri: "https://source.unsplash.com/300x300/?island,greece" }} style={styles.image} />
+        <View style={styles.gallery}>
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <Image source={{ uri: item.image }} style={styles.image} />
+        </View>
       </View>
 
     </ScrollView>
@@ -48,58 +66,81 @@ export default function DetalhesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f2f2f2",
+  container: { 
+    flex: 1, 
+    backgroundColor: "#FFFFFF" 
   },
-
-  header: {
-    backgroundColor: "#3b5d7a",
-    padding: 15,
-    flexDirection: "row",
-    justifyContent: "space-between",
+  tag: { 
+    backgroundColor: "#6a8caf", // Tom de azul acinzentado idêntico à imagem_7ea82a.jpg
+    marginHorizontal: 15, 
+    borderRadius: 20, 
+    paddingVertical: 10, 
+    alignItems: "center", 
+    marginTop: 15 
   },
-
-  tag: {
-    backgroundColor: "#3b5d7a",
-    margin: 10,
-    borderRadius: 20,
-    padding: 5,
-    alignItems: "center",
+  tagText: { 
+    color: "#fff", 
+    fontWeight: "800", 
+    letterSpacing: 1,
+    fontSize: 15
   },
-
-  tagText: {
-    color: "#fff",
-    fontWeight: "bold",
+  card: { 
+    backgroundColor: "#EBEFEF", // Cor de fundo cinza clara do card do protótipo
+    marginHorizontal: 15, 
+    marginTop: 15, 
+    padding: 20, 
+    borderRadius: 20 
   },
-
-  card: {
-    backgroundColor: "#d9d9d9",
-    marginHorizontal: 10,
-    padding: 15,
-    borderRadius: 10,
+  title: { 
+    fontSize: 20, 
+    fontWeight: "900", 
+    color: "#000000", 
+    marginBottom: 15, 
+    letterSpacing: 0.5 
   },
-
-  title: {
-    fontWeight: "bold",
-    marginBottom: 10,
+  infoBlock: { 
+    gap: 8 
   },
-
-  bold: {
-    fontWeight: "bold",
+  text: { 
+    fontSize: 14, 
+    color: "#000000", 
+    lineHeight: 20 
   },
-
-  gallery: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    marginBottom: 20,
+  bold: { 
+    fontWeight: "bold", 
+    color: "#000000" 
   },
-
-  image: {
-    width: "45%",
-    height: 120,
-    marginVertical: 5,
-    borderRadius: 10,
+  galleryContainer: { 
+    backgroundColor: "#0F283F", // Azul escuro profundo da galeria
+    margin: 15, 
+    borderRadius: 20, 
+    padding: 15, 
+    alignItems: "center", 
+    marginBottom: 30 
   },
+  galleryTag: { 
+    backgroundColor: "#FFFFFF", 
+    paddingHorizontal: 40, 
+    paddingVertical: 6, 
+    borderRadius: 20, 
+    marginBottom: 15 
+  },
+  galleryTagText: { 
+    color: "#0F283F", 
+    fontWeight: "900", 
+    fontSize: 14, 
+    letterSpacing: 1 
+  },
+  gallery: { 
+    flexDirection: "row", 
+    flexWrap: "wrap", 
+    justifyContent: "space-between", 
+    width: "100%" 
+  },
+  image: { 
+    width: "48%", 
+    height: 130, 
+    marginVertical: 5, 
+    borderRadius: 15 
+  }
 });

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, StatusBar, TouchableOpacity } from 'react-native';
 import Card from '../components/Card'; 
@@ -6,17 +5,89 @@ import Card from '../components/Card';
 const CATEGORIES = ['Todos', 'Vilas', 'Natureza', 'História', 'Praias'];
 
 const DATA = [
-  { id: '1', title: 'Vulcão em Santorini', category: 'Natureza', image: 'https://i.pinimg.com/736x/25/6d/76/256d762e2437bde3694aa98114986bed.jpg' },
-  { id: '2', title: 'Catedral São João B.', category: 'História', image: 'https://i.pinimg.com/1200x/cb/0a/3b/cb0a3b434f1d5c6f8a91f271806907ef.jpg' },
-  { id: '3', title: 'Vila Oia', category: 'Vilas', image: 'https://i.pinimg.com/736x/de/15/16/de1516e0d6f2395cc4c1fe6fedf64dd3.jpg' },
-  { id: '4', title: 'Sítio Akrotiri', category: 'História', image: 'https://i.pinimg.com/1200x/d6/31/3a/d6313a1271fafa67cdcc8539f5267bec.jpg' },
-  { id: '5', title: 'Fira Town', category: 'Vilas', image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=600' },
-  { id: '6', title: 'Imerovigli', category: 'Vilas', image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=600' },
-  { id: '7', title: 'Farol de Akrotiri', category: 'História', image: 'https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?q=80&w=600' },
-  { id: '8', title: 'Praia de Kamari', category: 'Praias', image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=600' },
+  { 
+    id: '1', 
+    title: 'Vulcão em Santorini', 
+    category: 'Natureza', 
+    image: 'https://i.pinimg.com/736x/25/6d/76/256d762e2437bde3694aa98114986bed.jpg',
+    localizacao: 'Caldeira de Santorini, Mar Egeu',
+    saida: 'Porto antigo de Fira ou Imerovigli de barco',
+    duracao: '4 a 6 horas',
+    destaques: ['• Trilhas formadas por rochas vulcânicas', '• Vista panorâmica de Santorini', '• Experiência única com vulcão ativo']
+  },
+  { 
+    id: '2', 
+    title: 'Catedral São João B.', 
+    category: 'História', 
+    image: 'https://i.pinimg.com/1200x/cb/0a/3b/cb0a3b434f1d5c6f8a91f271806907ef.jpg',
+    localizacao: 'Fira Centro',
+    saida: 'Acesso direto a pé pelas ruas centrais de Fira',
+    duracao: '1 a 2 horas',
+    destaques: ['• Arquitetura barroca deslumbrante', '• Pinturas religiosas e afrescos históricos', '• Localizada no ponto mais movimentado da ilha']
+  },
+  { 
+    id: '3', 
+    title: 'Vila Oia', 
+    category: 'Vilas', 
+    image: 'https://i.pinimg.com/736x/de/15/16/de1516e0d6f2395cc4c1fe6fedf64dd3.jpg',
+    localizacao: 'Extremo norte de Santorini',
+    saida: 'Estacionamento central de Oia ou ônibus local',
+    duracao: 'Livre (Recomendado fim da tarde)',
+    destaques: ['• As famosas igrejas de cúpula azul', '• O pôr do sol mais icônico do mundo', '• Ruelas charmosas com lojinhas artesanais']
+  },
+  { 
+    id: '4', 
+    title: 'Sítio Akrotiri', 
+    category: 'História', 
+    image: 'https://i.pinimg.com/1200x/d6/31/3a/d6313a1271fafa67cdcc8539f5267bec.jpg',
+    localizacao: 'Região sul de Santorini',
+    saida: 'Entrada principal do Parque Arqueológico',
+    duracao: '2 a 3 horas',
+    destaques: ['• Ruínas da antiga civilização Minoica', '• Cidade preservada por cinzas vulcânicas', '• Estruturas cobertas ideais para dias quentes']
+  },
+  { 
+    id: '5', 
+    title: 'Fira Town', 
+    category: 'Vilas', 
+    image: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=600',
+    localizacao: 'Centro de Santorini',
+    saida: 'Terminal rodoviário central de Fira',
+    duracao: 'Livre',
+    destaques: ['• Capital vibrante cheia de restaurantes', '• Teleférico com descida para o porto velho', '• Mirantes perfeitos para fotos da Caldeira']
+  },
+  { 
+    id: '6', 
+    title: 'Imerovigli', 
+    category: 'Vilas', 
+    image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=600',
+    localizacao: 'Entre Fira e Oia',
+    saida: 'Acesso pela passarela de pedestres da Caldeira',
+    duracao: '2 a 3 horas',
+    destaques: ['• Conhecida como a "varanda de Santorini"', '• Atmosfera muito mais calma e reservada', '• Caminhada até a famosa rocha Skaros Rock']
+  },
+  { 
+    id: '7', 
+    title: 'Farol de Akrotiri', 
+    category: 'História', 
+    image: 'https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?q=80&w=600',
+    localizacao: 'Extremo sul da ilha',
+    saida: 'Acesso de carro ou quadriciclo até o topo do penhasco',
+    duracao: '1 hora',
+    destaques: ['• Um dos faróis mais antigos do país', '• Vista limpa e sem barreiras para o mar', '• Pôr do sol incrível fugindo das multidões']
+  },
+  { 
+    id: '8', 
+    title: 'Praia de Kamari', 
+    category: 'Praias', 
+    image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=600',
+    localizacao: 'Costa leste de Santorini',
+    saida: 'Calçadão beira-mar de Kamari',
+    duracao: 'Meio período ou dia inteiro',
+    destaques: ['• Praia exótica com areia preta vulcânica', '• Calçadão repleto de bares e espreguiçadeiras', '• Águas cristalinas ideais para mergulho']
+  }
 ];
 
-export default function ListScreen({ navigation }) {
+export default function ListScreenPoints({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
 
   const filteredData = selectedCategory === 'Todos' 
@@ -25,11 +96,7 @@ export default function ListScreen({ navigation }) {
 
   const renderItem = ({ item }) => (
     <View style={styles.cardWrapper}>
-      <Card 
-        title={item.title} 
-        imageUrl={item.image} 
-        onPress={() => console.log(`Navegar para detalhes de: ${item.title}`)} 
-      />
+      <Card item={item} />
     </View>
   );
 

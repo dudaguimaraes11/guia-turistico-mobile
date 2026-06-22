@@ -10,6 +10,7 @@ import ListaRestaurantes from './Screens/ListaRestaurantes';
 import ListaPontosTuristicos from './Screens/ListaPontosTuristicos';
 import Sobre from './Screens/SobreScreen';
 import Contato from './Screens/ContatoScreen';
+import DetalhesScreen from './Screens/DetalhesScreen'; 
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +24,6 @@ export default function App() {
           headerTintColor: '#fff',
           headerTitle: '', 
           headerTitleAlign: 'center',
-          // Isso força o botão de menu a abrir a aba lateral ao ser clicado!
           headerLeft: () => (
             <TouchableOpacity 
               onPress={() => navigation.toggleDrawer()} 
@@ -44,6 +44,15 @@ export default function App() {
         <Drawer.Screen name="Pontos Turísticos" component={ListaPontosTuristicos} />
         <Drawer.Screen name="Sobre" component={Sobre} />
         <Drawer.Screen name="Contato" component={Contato} />
+
+        <Drawer.Screen 
+          name="Detalhes" 
+          component={DetalhesScreen} 
+          options={{
+            drawerItemStyle: { display: 'none' } 
+          }}
+        />
+
       </Drawer.Navigator>
     </NavigationContainer>
   );
